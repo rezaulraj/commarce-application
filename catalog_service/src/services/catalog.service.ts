@@ -6,16 +6,17 @@ export class CatalogService {
     this._repository = repository;
   }
   async createProduct(input: any) {
-    return {
-      id: 1,
-      title: "new job",
-      description: "the IT Jobs",
-      images: ["random image"],
-      category: "random category",
-      stock: 1,
-    };
+    const data = await this._repository.create(input);
+    if (!data.id) {
+      throw new Error("unable to create product");
+    }
+    return data;
   }
-  updateProduct(input: any) {}
+  async updateProduct(input: any) {
+    const data = await this._repository.update(input);
+    // emit event to update record in Elastic search
+    return data;
+  }
 
   getProducts(limite: number, offset: number) {}
   getProduct(id: number) {}

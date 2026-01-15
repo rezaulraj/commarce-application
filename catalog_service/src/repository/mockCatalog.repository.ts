@@ -3,10 +3,14 @@ import type { Product } from "../models/Product.model.js";
 
 export class MockCatalogRepository implements ICatalogRepository {
   create(data: Product): Promise<Product> {
-    throw new Error("Method not implemented.");
+    const mockProduct = {
+      ...data,
+      id: 112,
+    } as Product;
+    return Promise.resolve(mockProduct);
   }
   update(data: Product): Promise<Product> {
-    throw new Error("Method not implemented.");
+    return Promise.resolve(data as unknown as Product);
   }
   delete(id: any): Promise<void> {
     throw new Error("Method not implemented.");
